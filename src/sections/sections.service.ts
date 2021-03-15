@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateSectionDto } from './dto/create-section.dto';
@@ -17,16 +17,28 @@ export class SectionsService {
   }
 
   async getById(id: string): Promise<Section> {
-    return this.sectionsRepository.findOne(id);
+    const section = await this.sectionsRepository.findOne(id);
+
+    if (!section) {
+      throw new NotFoundException(`Section #${id} not found`);
+    }
+
+    return section;
   }
 
-  async create(sectionDto: CreateSectionDto): Promise<Section> {
-    const section = this.sectionsRepository.create(sectionDto);
+  async create(createSectionDto: CreateSectionDto): Promise<Section> {
+    const section = this.sectionsRepository.create(createSectionDto);
+
     return this.sectionsRepository.save(section);
   }
 
   async remove(id: string): Promise<Section> {
     const section = await this.sectionsRepository.findOne(id);
+
+    if (!section) {
+      throw new NotFoundException(`Section #${id} not found`);
+    }
+
     return this.sectionsRepository.remove(section);
   }
 
@@ -38,6 +50,10 @@ export class SectionsService {
       id: +id,
       ...updatedSectionDto,
     });
+
+    if (!section) {
+      throw new NotFoundException(`Section #${id} not found`);
+    }
 
     return this.sectionsRepository.save(section);
   }
