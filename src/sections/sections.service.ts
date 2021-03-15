@@ -1,22 +1,44 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateSectionDto } from './dto/create-section.dto';
+import { UpdateSectionDto } from './dto/update-section.dto';
+import { Section } from './sections.entity';
 
 @Injectable()
 export class SectionsService {
-  private sections = [];
+  constructor(
+    @InjectRepository(Section)
+    private sectionsRepository: Repository<Section>,
+  ) {}
 
-  getAll() {
-    return this.sections;
+  async getAll(): Promise<Section[]> {
+    return this.sectionsRepository.find();
   }
 
-  getById(id: string) {
-    return this.sections.find((section) => section.id === id);
+  async getById(id: string): Promise<Section> {
+    return this.sectionsRepository.findOne(id);
   }
 
-  create(sectionDto: CreateSectionDto) {
-    this.sections.push({
-      ...sectionDto,
-      id: Date.now().toString(),
+  async create(sectionDto: CreateSectionDto): Promise<Section> {
+    const section = this.sectionsRepository.create(sectionDto);
+    return this.sectionsRepository.save(section);
+  }
+
+  async remove(id: string): Promise<Section> {
+    const section = await this.sectionsRepository.findOne(id);
+    return this.sectionsRepository.remove(section);
+  }
+
+  async update(
+    id: string,
+    updatedSectionDto: UpdateSectionDto,
+  ): Promise<Section> {
+    const section = await this.sectionsRepository.preload({
+      id: +id,
+      ...updatedSectionDto,
     });
+
+    return this.sectionsRepository.save(section);
   }
 }
