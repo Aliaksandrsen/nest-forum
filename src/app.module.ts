@@ -3,12 +3,18 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { SectionModule } from './sections/sections.module';
 import { config } from './orm.conig';
+import { SectionModule } from './sections/sections.module';
 import { TopicsModule } from './topics/topics.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(config), SectionModule, TopicsModule],
+  imports: [
+    TypeOrmModule.forRoot(config),
+    SectionModule,
+    TopicsModule,
+    UsersModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

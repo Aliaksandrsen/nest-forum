@@ -29,10 +29,6 @@ export class TopicsController {
 
   @Post()
   create(@Body() createSectionDto: CreateTopicDto): Promise<Topic> {
-    // console.log(
-    //   'TopicsController ~ create ~ createSectionDto',
-    //   createSectionDto,
-    // );
     return this.topicsService.create(createSectionDto);
   }
 
