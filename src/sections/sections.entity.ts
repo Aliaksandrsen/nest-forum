@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Topic } from '../topics/topics.entity';
 
 @Entity() // sql table === 'section'
 export class Section {
@@ -7,4 +8,7 @@ export class Section {
 
   @Column()
   title: string;
+
+  @OneToMany(() => Topic, (topic) => topic.section)
+  topics: Topic[];
 }

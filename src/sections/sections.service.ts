@@ -13,11 +13,15 @@ export class SectionsService {
   ) {}
 
   async getAll(): Promise<Section[]> {
-    return this.sectionsRepository.find();
+    return this.sectionsRepository.find({
+      relations: ['topics'],
+    });
   }
 
   async getById(id: string): Promise<Section> {
-    const section = await this.sectionsRepository.findOne(id);
+    const section = await this.sectionsRepository.findOne(id, {
+      relations: ['topics'],
+    });
 
     if (!section) {
       throw new NotFoundException(`Section #${id} not found`);
