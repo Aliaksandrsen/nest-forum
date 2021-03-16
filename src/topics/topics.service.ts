@@ -33,7 +33,7 @@ export class TopicsService {
 
   async create(createTopicDto: CreateTopicDto): Promise<Topic> {
     if (!createTopicDto.sectionId) {
-      throw new Error(`Sectin id is requared`);
+      throw new Error(`Section id is requared`);
     }
 
     const topic = new Topic();

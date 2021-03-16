@@ -28,8 +28,8 @@ export class TopicsController {
   }
 
   @Post()
-  create(@Body() createSectionDto: CreateTopicDto): Promise<Topic> {
-    return this.topicsService.create(createSectionDto);
+  create(@Body() createTopicDto: CreateTopicDto): Promise<Topic> {
+    return this.topicsService.create(createTopicDto);
   }
 
   @Delete(':id')
@@ -39,9 +39,9 @@ export class TopicsController {
 
   @Put(':id')
   update(
-    @Body() updateSectionDto: UpdateTopicDto,
+    @Body() updateTopicDto: UpdateTopicDto,
     @Param('id') id: string,
   ): Promise<Topic> {
-    return this.topicsService.update(id, updateSectionDto);
+    return this.topicsService.update(id, updateTopicDto);
   }
 }
