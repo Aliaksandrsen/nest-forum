@@ -1,5 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 import { Section } from '../sections/sections.entity';
+import { Subtopic } from '../subtopics/subtopics.entity';
 
 @Entity() // sql table === 'topic'
 export class Topic {
@@ -11,4 +18,7 @@ export class Topic {
 
   @ManyToOne(() => Section, (section) => section.topics)
   section: Section;
+
+  @OneToMany(() => Subtopic, (subtopic) => subtopic.topic)
+  subtopics: Subtopic[];
 }

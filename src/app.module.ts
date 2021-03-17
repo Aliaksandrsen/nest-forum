@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { config } from './orm.conig';
 import { SectionModule } from './sections/sections.module';
 import { TopicsModule } from './topics/topics.module';
+import { SubtopicsModule } from './subtopics/subtopics.module';
 import { UsersModule } from './users/users.module';
 
 @Module({
@@ -13,6 +14,7 @@ import { UsersModule } from './users/users.module';
     TypeOrmModule.forRoot(config),
     SectionModule,
     TopicsModule,
+    SubtopicsModule,
     UsersModule,
   ],
   controllers: [AppController],
