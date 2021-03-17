@@ -16,9 +16,9 @@ export class Topic {
   @Column()
   title: string;
 
-  @ManyToOne(() => Section, (section) => section.topics)
-  section: Section;
-
   @OneToMany(() => Subtopic, (subtopic) => subtopic.topic)
   subtopics: Subtopic[];
+
+  @ManyToOne(() => Section, (section) => section.topics)
+  section: Section;
 }

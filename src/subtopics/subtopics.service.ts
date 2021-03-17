@@ -33,10 +33,6 @@ export class SubtopicsService {
   }
 
   async create(createSubtopicDto: CreateSubtopicDto): Promise<Subtopic> {
-    if (!createSubtopicDto.topicId) {
-      throw new NotFoundException(`Topic id is requared`);
-    }
-
     const subtopic = new Subtopic();
     subtopic.title = createSubtopicDto.title;
 
@@ -77,6 +73,6 @@ export class SubtopicsService {
       throw new NotFoundException(`Subtopic #${id} not found`);
     }
 
-    return this.topicsRepository.save(subtopic);
+    return this.subtopicsRepository.save(subtopic);
   }
 }

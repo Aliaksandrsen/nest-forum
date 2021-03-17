@@ -16,12 +16,12 @@ export class TopicsService {
   ) {}
 
   async getAll(): Promise<Topic[]> {
-    return this.topicsRepository.find({ relations: ['section'] });
+    return this.topicsRepository.find({ relations: ['section', 'subtopics'] });
   }
 
   async getById(id: string): Promise<Topic> {
     const topic = await this.topicsRepository.findOne(id, {
-      relations: ['section'],
+      relations: ['section', 'subtopics'],
     });
 
     if (!topic) {
@@ -32,10 +32,6 @@ export class TopicsService {
   }
 
   async create(createTopicDto: CreateTopicDto): Promise<Topic> {
-    if (!createTopicDto.sectionId) {
-      throw new Error(`Section id is requared`);
-    }
-
     const topic = new Topic();
     topic.title = createTopicDto.title;
 
@@ -64,10 +60,15 @@ export class TopicsService {
   }
 
   async update(id: string, updatedTopicDto: UpdateTopicDto): Promise<Topic> {
+    console.log('TopicsService ~ update ~ updatedTopicDto', updatedTopicDto);
+    // нужно ли иметь возможность topics кидать в др sections?
+    // 1) тогда придется вытаскивать нужную section по id из репозитория
+
     const topic = await this.topicsRepository.preload({
       id: +id,
       ...updatedTopicDto,
     });
+    console.log('TopicsService ~ update ~ topic', topic);
 
     if (!topic) {
       throw new NotFoundException(`Topic #${id} not found`);

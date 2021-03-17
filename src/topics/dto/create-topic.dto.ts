@@ -1,4 +1,11 @@
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+
 export class CreateTopicDto {
+  @IsString()
+  @IsNotEmpty()
   title: string;
-  sectionId: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  sectionId: number;
 }
