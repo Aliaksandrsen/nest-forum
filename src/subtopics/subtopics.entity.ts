@@ -1,4 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
+import { Message } from '../messages/messages.entity';
 import { Topic } from '../topics/topics.entity';
 
 @Entity() // sql table === 'subtopic'
@@ -8,6 +15,9 @@ export class Subtopic {
 
   @Column()
   title: string;
+
+  @OneToMany(() => Message, (message) => message.subtopic)
+  messages: Message[];
 
   @ManyToOne(() => Topic, (topic) => topic.subtopics)
   topic: Topic;

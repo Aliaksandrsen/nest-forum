@@ -8,6 +8,7 @@ import { SectionModule } from './sections/sections.module';
 import { TopicsModule } from './topics/topics.module';
 import { SubtopicsModule } from './subtopics/subtopics.module';
 import { UsersModule } from './users/users.module';
+import { MessagesModule } from './messages/messages.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { UsersModule } from './users/users.module';
     TopicsModule,
     SubtopicsModule,
     UsersModule,
+    MessagesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
