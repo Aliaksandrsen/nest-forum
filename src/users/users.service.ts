@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './users.entity';
@@ -26,7 +27,16 @@ export class UsersService {
     return user;
   }
 
+  async findOneByName(username): Promise<User | undefined> {
+    const user = await this.usersRepository.findOne({
+      select: ['id', 'username', 'password'], // в Entity закрыли password (но тут надо вытащить)
+      where: { username: username },
+    });
+    return user;
+  }
+
   async create(createUserDto: CreateUserDto): Promise<User> {
+    // ? возможно здесь написать обработчик???
     const user = this.usersRepository.create(createUserDto);
 
     return this.usersRepository.save(user);

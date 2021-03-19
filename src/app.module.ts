@@ -9,6 +9,7 @@ import { TopicsModule } from './topics/topics.module';
 import { SubtopicsModule } from './subtopics/subtopics.module';
 import { UsersModule } from './users/users.module';
 import { MessagesModule } from './messages/messages.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { MessagesModule } from './messages/messages.module';
     SubtopicsModule,
     UsersModule,
     MessagesModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
