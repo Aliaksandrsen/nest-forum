@@ -4,11 +4,11 @@ import * as path from 'path';
 
 export const config: TypeOrmModuleOptions = {
   type: 'postgres',
-  host: 'localhost',
+  host: 'ec2-54-216-48-43.eu-west-1.compute.amazonaws.com',
   port: 5432,
-  username: 'aliaksandr',
-  password: 'root',
-  database: 'forum_db',
+  username: 'nhazhwzkqxrywo',
+  password: 'c1808c8b3a6318c1205e439bcac46c67485212e8a3496865ea2626edca4fe17b',
+  database: 'd24ht6p131niui',
   entities: [path.resolve(__dirname, '**/*.entity{.ts,.js}')],
-  synchronize: true,
+  synchronize: false,
 };
